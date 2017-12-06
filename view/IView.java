@@ -8,6 +8,6 @@ import com.biwe.day08.bean.Bean;
 
 public interface IView {
 
-    public void ShowData(Bean bean,int count);
+    public void ShowData(Bean bean);
 
 }

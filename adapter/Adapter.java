@@ -17,11 +17,22 @@ public class Adapter extends XRecyclerView.Adapter<Adapter.MyViewHolder>{
     private TextView tv;
     private Bean bean;
     private SimpleDraweeView sim;
+    private onItemClickListener itemClickListener;
 
     public Adapter(Context context,  Bean bean) {
         this.context=context;
         this.bean=bean;
     }
+
+    public void setOnItemClickListener(onItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+    public interface onItemClickListener{
+        void onItemClickListener(View v,int position);
+    }
+
+
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,7 +42,14 @@ public class Adapter extends XRecyclerView.Adapter<Adapter.MyViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position1 = holder.getLayoutPosition();
+                itemClickListener.onItemClickListener(view,position1);
+            }
+        });
         tv.setText(bean.getNewslist().get(position).getTitle());
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setUri(bean.getNewslist().get(position).getPicUrl())

@@ -20,7 +20,7 @@ public class NBAPresenter {
         nbaModel=new NBAModel();
     }
 
-    public void getData(final int page){
+    public void getData(){
 
         nbaModel.getData(new Observer<Bean>() {
             @Override
@@ -35,7 +35,7 @@ public class NBAPresenter {
 
             @Override
             public void onNext(Bean bean) {
-                iView.ShowData(bean,page);
+                iView.ShowData(bean);
             }
         });
     }
